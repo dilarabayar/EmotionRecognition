@@ -3,6 +3,7 @@ public class Individual {
 
     private static final int ROW_LENGTH = 7;
 
+    private Double[][]confusionMatrix;
     private Emotion[] emotionArray = new Emotion[ROW_LENGTH];
 
     private double contempt_fitnessValue, anger_fitnessValue, disgust_fitnessValue, fear_fitnessValue, happy_fitnessValue, sadness_fitnessValue, surprise_fitnessValue;;
@@ -96,6 +97,13 @@ public class Individual {
         this.surprise_fitnessValue = p.getSurprise_fitnessValue();
     }
 
+    public Double[][] getConfusionMatrix() {
+        return confusionMatrix;
+    }
+
+    public void setConfusionMatrix(Double[][] confusionMatrix) {
+        this.confusionMatrix = confusionMatrix;
+    }
 }
 
 

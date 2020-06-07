@@ -1,4 +1,6 @@
 import java.io.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -436,7 +438,14 @@ public class EmotionRepresentation {
 
         String[] emotion = {"CONTEMPT","ANGER", "DISGUST", "FEAR", "HAPPY", "SADNESS", "SURPRISE"};
         Double[]matchedEmotions={0.0,0.0,0.0,0.0,0.0,0.0,0.0};
-
+        Double [] notMatchedS={0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+        Double[][]confusionMatrix={{0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+                {0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+                {0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+                {0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+                {0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+                {0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+                {0.0,0.0,0.0,0.0,0.0,0.0,0.0}};
         int notMatchedCount=0;
         for (int i = 0; i < p.getEmotionArray().length; i++)
         {
@@ -449,14 +458,37 @@ public class EmotionRepresentation {
                 //System.out.println("Match found at database line: " + e.getFirstCol() + " " + e.getSecondCol() + " with binary array line " + (i + 1) + ", Emotion: " + emotion[i]);
                 if (e.getEmotion().contentEquals(emotion[i]))
                 {
+                    confusionMatrix[i][i]++;
                     matchedEmotions[i]++;
                 }
                 else{
+                    notMatchedS[i]++;
+                    if(e.getEmotion().contentEquals(emotion[0])){
+                        confusionMatrix[0][i]++;
+                    }
+                    else if(e.getEmotion().contentEquals(emotion[1])){
+                        confusionMatrix[1][i]++;
+                    }
+                    else if(e.getEmotion().contentEquals(emotion[2])){
+                        confusionMatrix[2][i]++;
+                    }
+                    else if(e.getEmotion().contentEquals(emotion[3])){
+                        confusionMatrix[3][i]++;
+                    }
+                    else if(e.getEmotion().contentEquals(emotion[4])){
+                        confusionMatrix[4][i]++;
+                    }
+                    else if(e.getEmotion().contentEquals(emotion[5])){
+                        confusionMatrix[5][i]++;
+                    }
+                    else if(e.getEmotion().contentEquals(emotion[6])){
+                        confusionMatrix[6][i]++;
+                    }
                     notMatchedCount++;
                 }
             }
         }
-
+        p.setConfusionMatrix(confusionMatrix);
         p.setContempt_fitnessValue(matchedEmotions[0]/emotionsCounts[0]);
         p.setAnger_fitnessValue(matchedEmotions[1]/emotionsCounts[1]);
         p.setDisgust_fitnessValue(matchedEmotions[2]/emotionsCounts[2]);
@@ -595,7 +627,7 @@ public class EmotionRepresentation {
         try
         {
             writer = new BufferedWriter(new FileWriter(path, true));     //write instructions line by line
-            writer.write(bff + "\n");
+            writer.write(bff );
             writer.close();
         }
         catch (IOException e) {
@@ -641,25 +673,42 @@ public class EmotionRepresentation {
             bestFitnessValues[5]=best.getSadness_fitnessValue();
         if(bestFitnessValues[6]<best.getSurprise_fitnessValue())
             bestFitnessValues[6]=best.getSurprise_fitnessValue();
-        writeToFile("Anger.txt",bestFitnessValues[0]+" ");
-        writeToFile("Disgust.txt",bestFitnessValues[1]+" ");
-        writeToFile("Fear.txt",bestFitnessValues[2]+" ");
-        writeToFile("Happy.txt",bestFitnessValues[3]+" ");
-        writeToFile("Contempt.txt",bestFitnessValues[4]+" ");
-        writeToFile("Sadness.txt",bestFitnessValues[5]+" ");
-        writeToFile("Surprise.txt",bestFitnessValues[6]+" ");
+        writeToFile("Anger.txt",bestFitnessValues[0]+" \n");
+        writeToFile("Disgust.txt",bestFitnessValues[1]+" \n");
+        writeToFile("Fear.txt",bestFitnessValues[2]+" \n");
+        writeToFile("Happy.txt",bestFitnessValues[3]+" \n");
+        writeToFile("Contempt.txt",bestFitnessValues[4]+" \n");
+        writeToFile("Sadness.txt",bestFitnessValues[5]+" \n");
+        writeToFile("Surprise.txt",bestFitnessValues[6]+" \n");
     }
 
     static void writeBestIndividualToFile(){
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        String[] emotion = {"CONTEMPT","ANGER", "DISGUST", "FEAR", "HAPPY", "SADNESS", "SURPRISE"};
         writeToFile("best_Individual.txt",best.toString());
-        writeToFile("best_Individual.txt","Anger:"+bestFitnessValues[0]);
-        writeToFile("best_Individual.txt","Disgust:"+bestFitnessValues[1]);
-        writeToFile("best_Individual.txt","Fear:"+bestFitnessValues[2]);
-        writeToFile("best_Individual.txt","Happy:"+bestFitnessValues[3]);
-        writeToFile("best_Individual.txt","Contempt:"+bestFitnessValues[4]);
-        writeToFile("best_Individual.txt","Sadness:"+bestFitnessValues[5]);
-        writeToFile("best_Individual.txt","Surprise:"+bestFitnessValues[6]);
+        writeToFile("best_Individual.txt","Anger:"+bestFitnessValues[0]+"\n");
+        writeToFile("best_Individual.txt","Disgust:"+bestFitnessValues[1]+"\n");
+        writeToFile("best_Individual.txt","Fear:"+bestFitnessValues[2]+"\n");
+        writeToFile("best_Individual.txt","Happy:"+bestFitnessValues[3]+"\n");
+        writeToFile("best_Individual.txt","Contempt:"+bestFitnessValues[4]+"\n");
+        writeToFile("best_Individual.txt","Sadness:"+bestFitnessValues[5]+"\n");
+        writeToFile("best_Individual.txt","Surprise:"+bestFitnessValues[6]+"\n");
+        writeToFile("best_Individual.txt","           CONTEMPT  ANGER     DISGUST   FEAR      " +
+                "HAPPY     SADNESS   SURPRISE");
+        for (int i=0;i<7;i++){
+            writeToFile("best_Individual.txt","\n"+String.format("%-10s",emotion[i])+":");
+            for(int j=0;j<7;j++){
+                writeToFile("best_Individual.txt",String.format("%-10s",formatter.format(best.getConfusionMatrix()[i][j]/sum(best.getConfusionMatrix()[i]))));
+
+            }
+        }
         writeToFile("best_Individual.txt","\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" +
-                "+++++++++++++++++++++++++++++++++++++++++++++++++\n");
+                "+++++++++++++++++++++++++++++++++++++++++++++++++\n\n");
+    }
+    static double sum(Double[]values) {
+        double result = 0;
+        for (Double value:values)
+            result += value;
+        return result;
     }
 }
