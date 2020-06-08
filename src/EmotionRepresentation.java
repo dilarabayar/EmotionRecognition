@@ -488,6 +488,9 @@ public class EmotionRepresentation {
                 }
             }
         }
+        for (int i=0;i<7;i++){
+            confusionMatrix[i]=divideArraybyVal(confusionMatrix[i],emotionsCounts[i]);
+        }
         p.setConfusionMatrix(confusionMatrix);
         p.setContempt_fitnessValue(matchedEmotions[0]/emotionsCounts[0]);
         p.setAnger_fitnessValue(matchedEmotions[1]/emotionsCounts[1]);
@@ -698,7 +701,7 @@ public class EmotionRepresentation {
         for (int i=0;i<7;i++){
             writeToFile("best_Individual.txt","\n"+String.format("%-10s",emotion[i])+":");
             for(int j=0;j<7;j++){
-                writeToFile("best_Individual.txt",String.format("%-10s",formatter.format(best.getConfusionMatrix()[i][j]/sum(best.getConfusionMatrix()[i]))));
+                writeToFile("best_Individual.txt",String.format("%-10s",formatter.format(best.getConfusionMatrix()[i][j])));
 
             }
         }
@@ -710,5 +713,12 @@ public class EmotionRepresentation {
         for (Double value:values)
             result += value;
         return result;
+    }
+    static Double[] divideArraybyVal(Double[]doubles,Double val){
+        Double[]newDouble = new Double[doubles.length];
+        for (int i=0;i<doubles.length;i++){
+            newDouble[i]=doubles[i]/val;
+        }
+        return newDouble;
     }
 }
