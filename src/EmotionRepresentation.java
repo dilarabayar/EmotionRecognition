@@ -45,7 +45,13 @@ public class EmotionRepresentation {
 
 
             selectParents();            //Select 4 random number and choose first 2 biggest numbers as parents
-            worst=findWorstFitness(individual);               //Find the worst of population
+            if(counter == 0){
+                worst = individual[0];
+            }
+            else{
+                worst=findWorstFitness(individual);               //Find the worst of population
+            }
+
 
             Random rnd = new Random();
             crossoverPossibility = 100*rnd.nextDouble();
