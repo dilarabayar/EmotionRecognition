@@ -20,7 +20,6 @@ public class Individual {
         }
     }
 
-
     public double getContempt_fitnessValue() { return contempt_fitnessValue; }
     public double getAnger_fitnessValue() { return anger_fitnessValue; }
     public double getDisgust_fitnessValue() { return disgust_fitnessValue; }
@@ -30,7 +29,6 @@ public class Individual {
     public double getSurprise_fitnessValue() { return surprise_fitnessValue; }
     public Emotion[] getEmotionArray() { return emotionArray; }
 
-    public void setEmotionArray(Emotion[] emotionArray) { this.emotionArray = emotionArray; }
     public void setContempt_fitnessValue(double contempt_fitnessValue) { this.contempt_fitnessValue = contempt_fitnessValue; }
     public void setAnger_fitnessValue(double anger_fitnessValue) { this.anger_fitnessValue = anger_fitnessValue; }
     public void setDisgust_fitnessValue(double disgust_fitnessValue) { this.disgust_fitnessValue = disgust_fitnessValue; }
