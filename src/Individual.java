@@ -1,4 +1,3 @@
-
 public class Individual {
 
     private static final int ROW_LENGTH = 7;
@@ -32,7 +31,7 @@ public class Individual {
     public Emotion[] getEmotionArray() { return emotionArray; }
 
     public void setEmotionArray(Emotion[] emotionArray) { this.emotionArray = emotionArray; }
-    public void setContempt_fitnessValue(double neutral_fitnessValue) { this.contempt_fitnessValue = neutral_fitnessValue; }
+    public void setContempt_fitnessValue(double contempt_fitnessValue) { this.contempt_fitnessValue = contempt_fitnessValue; }
     public void setAnger_fitnessValue(double anger_fitnessValue) { this.anger_fitnessValue = anger_fitnessValue; }
     public void setDisgust_fitnessValue(double disgust_fitnessValue) { this.disgust_fitnessValue = disgust_fitnessValue; }
     public void setFear_fitnessValue(double fear_fitnessValue) { this.fear_fitnessValue = fear_fitnessValue; }
@@ -105,5 +104,3 @@ public class Individual {
         this.confusionMatrix = confusionMatrix;
     }
 }
-
-

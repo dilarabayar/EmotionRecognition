@@ -21,7 +21,7 @@ public class Emotion {
 
             int number_of_facs = rnd.nextInt(100);
 
-            if (number_of_facs < 90){
+            if (number_of_facs < 98){
                 singleEmotion += "0";
             }
             else if(number_of_facs < 100) {
@@ -59,6 +59,4 @@ public class Emotion {
     {
         return ones;
     }
-
-
 }

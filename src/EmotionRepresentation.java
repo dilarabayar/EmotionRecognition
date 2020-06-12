@@ -111,25 +111,14 @@ public class EmotionRepresentation {
                 "10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
                 "11000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"};
 
-        String[] array2 = {
-                "00000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000",
-                "00000000000000000000001100000000000000000000000000000000000000000000000000000000000000000000000",
-                "00000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-                "11000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000",
-                "00000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-                "10010000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000",
-                "10001000000000000000000010000000000000000000000000000000000000000100000000000000000000010000000"};
-
         individual[0] = new Individual(array);
-        individual[1] = new Individual(array2);
 
-        for (int i = 2; i < populationSize; i++) {
+        for (int i = 1; i < populationSize; i++) {
             individual[i] = new Individual();          //Create 10 individuals
         }
     }
 
     static void selectParents(){
-
         // make a list of individuals
         Individual[] shuffledIndividual = new Individual[INDIVIDUAL_COUNT];
 
@@ -147,8 +136,6 @@ public class EmotionRepresentation {
         for (int i = 0; i < EMOTION_COUNT; i++){
             shuffleAndSortIndividual(shuffledIndividual, i);
             for ( int n = 0; n < PARENT_LENGTH; n++) {
-                /// TODO: 13/03/2020 Must be variable hatası alıyorum, nedenini araştır! 15/04/2020 Hata almıyor!
-                //System.out.println("DEĞİŞECEK DEĞER" + shuffledIndividual[n].getEmotionArray()[i].getSingleEmotion());
                 parent[n].getEmotionArray()[i].setSingleEmotion(shuffledIndividual[n].getEmotionArray()[i].getSingleEmotion());
             }
         }
@@ -344,7 +331,6 @@ public class EmotionRepresentation {
 
         int sliceAt =  1 + rnd.nextInt(26);
 
-        //System.out.println("Sliced at: " + sliceAt);
         System.out.println();
 
         String[] piece1 = parent[0].slice(0 ,sliceAt);
@@ -388,15 +374,11 @@ public class EmotionRepresentation {
         System.out.println("Child 2 Fitness:");
         match(child[1]);
 
-        //printFitnessValues();
-
         System.out.println("Child 1 Fitness : "  + child[0].getContempt_fitnessValue() + ' ' + child[0].getAnger_fitnessValue() + ' ' + child[0].getDisgust_fitnessValue() + ' ' +
                 child[0].getHappy_fitnessValue() + ' ' + child[0].getSurprise_fitnessValue() + ' ' + child[0].getFear_fitnessValue() + ' ' + child[0].getSadness_fitnessValue());
 
         System.out.println("Child 2 Fitness : " + child[1].getContempt_fitnessValue() + ' ' + child[1].getAnger_fitnessValue() + ' ' + child[1].getDisgust_fitnessValue() + ' ' +
                 child[1].getHappy_fitnessValue() + ' ' + child[1].getSurprise_fitnessValue() + ' ' + child[1].getFear_fitnessValue() + ' ' + child[1].getSadness_fitnessValue());
-
-
 
     }
 
@@ -413,28 +395,17 @@ public class EmotionRepresentation {
                 + child[1].getHappy_fitnessValue() + child[1].getDisgust_fitnessValue() + child[1].getAnger_fitnessValue() + child[1].getContempt_fitnessValue();
 
         if(child0_fitnessValue >= worst_fitnessValue){
-            //System.out.println("OLD WORST: " + worst.getFitnessValue());
             worst.setNewContent(child[0]);
         }
-        //System.out.println("NEW WORST: " + worst.getFitnessValue());
-        //printFitnessValues();
         worst=findWorstFitness(individual);
 
         if(child1_fitnessValue >= worst_fitnessValue){
-            //System.out.println("OLD WORST: " + worst.getFitnessValue());
             worst.setNewContent(child[1]);
         }
         System.out.println();
-        //System.out.println("NEW WORST: " + worst.getFitnessValue());
-        //printFitnessValues();
-
-
     }
 
     static void match(Individual p) {
-
-        //p.printBinaryLines();
-        //p.printOnes();
 
         String[] emotion = {"CONTEMPT","ANGER", "DISGUST", "FEAR", "HAPPY", "SADNESS", "SURPRISE"};
         Double[]matchedEmotions={0.0,0.0,0.0,0.0,0.0,0.0,0.0};
@@ -662,25 +633,25 @@ public class EmotionRepresentation {
     }
 
     static void writeBestEmotionsToFile(Individual best){
-        if(bestFitnessValues[0]<best.getAnger_fitnessValue())
-            bestFitnessValues[0]=best.getAnger_fitnessValue();
-        if(bestFitnessValues[1]<best.getDisgust_fitnessValue())
-            bestFitnessValues[1]=best.getDisgust_fitnessValue();
-        if(bestFitnessValues[2]<best.getFear_fitnessValue())
-            bestFitnessValues[2]=best.getFear_fitnessValue();
-        if(bestFitnessValues[3]<best.getHappy_fitnessValue())
-            bestFitnessValues[3]=best.getHappy_fitnessValue();
-        if(bestFitnessValues[4]<best.getContempt_fitnessValue())
-            bestFitnessValues[4]=best.getContempt_fitnessValue();
+        if(bestFitnessValues[0]<best.getContempt_fitnessValue())
+            bestFitnessValues[0]=best.getContempt_fitnessValue();
+        if(bestFitnessValues[1]<best.getAnger_fitnessValue())
+            bestFitnessValues[1]=best.getAnger_fitnessValue();
+        if(bestFitnessValues[2]<best.getDisgust_fitnessValue())
+            bestFitnessValues[2]=best.getDisgust_fitnessValue();
+        if(bestFitnessValues[3]<best.getFear_fitnessValue())
+            bestFitnessValues[3]=best.getFear_fitnessValue();
+        if(bestFitnessValues[4]<best.getHappy_fitnessValue())
+            bestFitnessValues[4]=best.getHappy_fitnessValue();
         if(bestFitnessValues[5]<best.getSadness_fitnessValue())
             bestFitnessValues[5]=best.getSadness_fitnessValue();
         if(bestFitnessValues[6]<best.getSurprise_fitnessValue())
             bestFitnessValues[6]=best.getSurprise_fitnessValue();
-        writeToFile("Anger.txt",bestFitnessValues[0]+" \n");
-        writeToFile("Disgust.txt",bestFitnessValues[1]+" \n");
-        writeToFile("Fear.txt",bestFitnessValues[2]+" \n");
-        writeToFile("Happy.txt",bestFitnessValues[3]+" \n");
-        writeToFile("Contempt.txt",bestFitnessValues[4]+" \n");
+        writeToFile("Contempt.txt",bestFitnessValues[0]+" \n");
+        writeToFile("Anger.txt",bestFitnessValues[1]+" \n");
+        writeToFile("Disgust.txt",bestFitnessValues[2]+" \n");
+        writeToFile("Fear.txt",bestFitnessValues[3]+" \n");
+        writeToFile("Happy.txt",bestFitnessValues[4]+" \n");
         writeToFile("Sadness.txt",bestFitnessValues[5]+" \n");
         writeToFile("Surprise.txt",bestFitnessValues[6]+" \n");
     }
@@ -689,11 +660,11 @@ public class EmotionRepresentation {
         NumberFormat formatter = new DecimalFormat("#0.00");
         String[] emotion = {"CONTEMPT","ANGER", "DISGUST", "FEAR", "HAPPY", "SADNESS", "SURPRISE"};
         writeToFile("best_Individual.txt",best.toString());
-        writeToFile("best_Individual.txt","Anger:"+bestFitnessValues[0]+"\n");
-        writeToFile("best_Individual.txt","Disgust:"+bestFitnessValues[1]+"\n");
-        writeToFile("best_Individual.txt","Fear:"+bestFitnessValues[2]+"\n");
-        writeToFile("best_Individual.txt","Happy:"+bestFitnessValues[3]+"\n");
-        writeToFile("best_Individual.txt","Contempt:"+bestFitnessValues[4]+"\n");
+        writeToFile("best_Individual.txt","Contempt:"+bestFitnessValues[0]+"\n");
+        writeToFile("best_Individual.txt","Anger:"+bestFitnessValues[1]+"\n");
+        writeToFile("best_Individual.txt","Disgust:"+bestFitnessValues[2]+"\n");
+        writeToFile("best_Individual.txt","Fear:"+bestFitnessValues[3]+"\n");
+        writeToFile("best_Individual.txt","Happy:"+bestFitnessValues[4]+"\n");
         writeToFile("best_Individual.txt","Sadness:"+bestFitnessValues[5]+"\n");
         writeToFile("best_Individual.txt","Surprise:"+bestFitnessValues[6]+"\n");
         writeToFile("best_Individual.txt","           CONTEMPT  ANGER     DISGUST   FEAR      " +
@@ -708,12 +679,14 @@ public class EmotionRepresentation {
         writeToFile("best_Individual.txt","\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" +
                 "+++++++++++++++++++++++++++++++++++++++++++++++++\n\n");
     }
+
     static double sum(Double[]values) {
         double result = 0;
         for (Double value:values)
             result += value;
         return result;
     }
+
     static Double[] divideArraybyVal(Double[]doubles,Double val){
         Double[]newDouble = new Double[doubles.length];
         for (int i=0;i<doubles.length;i++){
